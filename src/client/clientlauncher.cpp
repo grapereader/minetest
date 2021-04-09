@@ -436,8 +436,10 @@ bool ClientLauncher::launch_game(std::string &error_message,
 		menudata.port                            = itos(start_data.socket_port);
 		menudata.script_data.errormessage        = error_message_lua;
 		menudata.script_data.reconnect_requested = reconnect_requested;
-		menudata.script_data.reconnect_address   = reconnect_address;
-		menudata.script_data.reconnect_port      = reconnect_port;
+		menudata.script_data.transfer_address    = reconnect_address;
+		menudata.script_data.transfer_port       = reconnect_port;
+		menudata.script_data.transfer_playername = start_data.name;
+		menudata.script_data.transfer_password   = start_data.password;
 
 		main_menu(&menudata);
 

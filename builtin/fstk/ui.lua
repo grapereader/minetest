@@ -61,15 +61,15 @@ function ui.update()
 	local formspec = {}
 
 	-- handle errors
-	if gamedata ~= nil and gamedata.reconnect_requested and #gamedata.reconnect_address > 0 then
+	if gamedata ~= nil and gamedata.reconnect_requested and #gamedata.transfer_address > 0 then
 		gamedata.reconnect_requested = false
 		gamedata.errormessage = nil
 		-- This is technically -not- a reconnect at this point
 		gamedata.do_reconnect = false
-		gamedata.address = gamedata.reconnect_address
-		if #gamedata.reconnect_port > 0 then
-			gamedata.port = gamedata.reconnect_port;
-		end
+		gamedata.address = gamedata.transfer_address
+		gamedata.port = gamedata.transfer_port
+		gamedata.playername = gamedata.transfer_playername
+		gamedata.password = gamedata.transfer_password
 		core.start()
 	elseif gamedata ~= nil and gamedata.reconnect_requested then
 		local error_message = core.formspec_escape(

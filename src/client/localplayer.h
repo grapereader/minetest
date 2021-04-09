@@ -153,8 +153,6 @@ public:
 
 	bool isDead() const;
 
-	void transfer(std::string ip, std::string port);
-
 	inline void addVelocity(const v3f &vel)
 	{
 		added_velocity += vel;

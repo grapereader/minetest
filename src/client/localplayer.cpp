@@ -1170,7 +1170,3 @@ void LocalPlayer::handleAutojump(f32 dtime, Environment *env,
 	}
 }
 
-void LocalPlayer::transfer(std::string ip, std::string port)
-{
-	//this->m_client->connect();
-}
