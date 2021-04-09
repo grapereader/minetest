@@ -35,6 +35,8 @@ void ScriptApiMainMenu::setMainMenuData(MainMenuDataForScript *data)
 	}
 	lua_settable(L, gamedata_idx);
 	setboolfield(L, gamedata_idx, "reconnect_requested", data->reconnect_requested);
+	setstringfield(L, gamedata_idx, "reconnect_address", data->reconnect_address);
+	setstringfield(L, gamedata_idx, "reconnect_port", data->reconnect_port);
 	lua_pop(L, 1);
 }
 

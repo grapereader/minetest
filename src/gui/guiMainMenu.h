@@ -30,6 +30,9 @@ struct MainMenuDataForScript {
 	// Whether the server has requested a reconnect
 	bool reconnect_requested = false;
 	std::string errormessage = "";
+
+	std::string reconnect_address;
+	std::string reconnect_port;
 };
 
 struct MainMenuData {

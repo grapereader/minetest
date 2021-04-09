@@ -645,6 +645,7 @@ public:
 			const GameStartData &game_params,
 			std::string &error_message,
 			bool *reconnect,
+			std::string &reconnect_address,
 			ChatBackend *chat_backend);
 
 	void run();
@@ -860,6 +861,8 @@ private:
 	bool *kill;
 	std::string *error_message;
 	bool *reconnect_requested;
+	std::string *reconnect_address;
+	std::string *reconnect_port;
 	scene::ISceneNode *skybox;
 	PausedNodesList paused_animated_nodes;
 
@@ -999,6 +1002,7 @@ bool Game::startup(bool *kill,
 		const GameStartData &start_data,
 		std::string &error_message,
 		bool *reconnect,
+		std::string &reconnect_address,
 		ChatBackend *chat_backend)
 {
 
@@ -1007,6 +1011,7 @@ bool Game::startup(bool *kill,
 	this->kill                = kill;
 	this->error_message       = &error_message;
 	this->reconnect_requested = reconnect;
+	this->reconnect_address   = &reconnect_address;
 	this->input               = input;
 	this->chat_backend        = chat_backend;
 	this->simple_singleplayer_mode = start_data.isSinglePlayer();
@@ -1513,6 +1518,8 @@ bool Game::connectToServer(const GameStartData &start_data,
 				*error_message = "Access denied. Reason: "
 						+ client->accessDeniedReason();
 				*reconnect_requested = client->reconnectRequested();
+				*reconnect_address = client->getReconnectAddress();
+				*reconnect_port = client->getReconnectPort();
 				errorstream << *error_message << std::endl;
 				break;
 			}
@@ -4253,7 +4260,8 @@ void the_game(bool *kill,
 		const GameStartData &start_data,
 		std::string &error_message,
 		ChatBackend &chat_backend,
-		bool *reconnect_requested) // Used for local game
+		bool *reconnect_requested,
+		std::string &reconnect_address) // Used for local game
 {
 	Game game;
 
@@ -4265,7 +4273,7 @@ void the_game(bool *kill,
 	try {
 
 		if (game.startup(kill, input, start_data, error_message,
-				reconnect_requested, &chat_backend)) {
+				reconnect_requested, reconnect_address, &chat_backend)) {
 			game.run();
 		}
 
